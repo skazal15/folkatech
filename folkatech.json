@@ -1,0 +1,141 @@
+{
+    "info": {
+        "name": "Folkatech API",
+        "_postman_id": "your-unique-id",
+        "description": "",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Register",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"username\": \"testuser\",\n    \"password\": \"testpassword\",\n    \"email\": \"testuser@example.com\"\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/user/register/",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "user",
+                        "register"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Login",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"username\": \"testuser\",\n    \"password\": \"testpassword\"\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/user/login/",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "user",
+                        "login"
+                    ]
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "let jsonData = pm.response.json();",
+                            "pm.environment.set(\"token\", jsonData.access);"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "List Product",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/product/list-product/",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "product",
+                        "list-product"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Detail Product",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{token}}",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/product/product/1/",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "product",
+                        "product",
+                        "1"
+                    ]
+                }
+            },
+            "response": []
+        }
+    ],
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "exec": [],
+                "type": "text/javascript"
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "exec": [],
+                "type": "text/javascript"
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://127.0.0.1:8000/api"
+        },
+        {
+            "key": "token",
+            "value": ""
+        }
+    ]
+}
